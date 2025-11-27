@@ -7,7 +7,7 @@ from mpl_toolkits.mplot3d import Axes3D
 # Hyperparameters
 n_top_features = 10
 
-print(f"\n----------------------------- Features -----------------------------\n")
+print(f"\n----------------------------- Experiment 1 -----------------------------\n")
 
 # Generate top n feature vectors based on score function
 # Assume that the feature vectors are already selected based on the score function.
@@ -24,7 +24,7 @@ print(f"Scores: \n{scores}")
 # Thus, the most important feature is at the top
 # Compute the similarity score and subtract from the actual score
 # -------------------------------------------------------------------------------------------------
-print(f"\n----------------------------- Experiment 1 -----------------------------\n")
+
 def similarity_scoring(x, y):
     score = np.inner(x, y)
     return score
@@ -50,9 +50,6 @@ for i in range(len(updated_scores)):
     else:
         updated_scores[i] = 0
 
-
-print(f"Updated scores after thresholding are:\n{updated_scores}\n")
-
 # Filter out the feature that is not zero
 filtered_feature_matrix = np.random.rand(n_top_features, 3)
 for i in range(len(updated_scores)):
@@ -61,6 +58,7 @@ for i in range(len(updated_scores)):
     else:
         filtered_feature_matrix[i] = 0
 
+print(f"Updated scores after thresholding are:\n{updated_scores}\n")
 print(f"Filtered feature matrix: \n{filtered_feature_matrix}\n")
 
 # -------------------------------------------------------------------------------------------------
