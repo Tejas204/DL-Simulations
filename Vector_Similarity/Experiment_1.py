@@ -5,15 +5,14 @@ import torch
 from mpl_toolkits.mplot3d import Axes3D
 
 # Hyperparameters
-n_top_features = 5
-scoring_threshold = 0.5
+n_top_features = 10
 
 print(f"\n----------------------------- Features -----------------------------\n")
 
 # Generate top n feature vectors based on score function
 # Assume that the feature vectors are already selected based on the score function.
-feature_matrix = np.random.rand(5, 3)
-scores = np.sort(np.random.rand(5), axis=None)[::-1]
+feature_matrix = np.random.rand(n_top_features, 3)
+scores = np.sort(np.random.rand(n_top_features), axis=None)[::-1]
 print(f"Feature matrix: \n{feature_matrix}\n")
 print(f"Scores: \n{scores}")
 
@@ -46,7 +45,7 @@ print(f"Updated scores with respect to the first feature are:\n{updated_scores}\
 
 # Drop scores
 for i in range(len(updated_scores)):
-    if updated_scores[i] >= scoring_threshold:
+    if updated_scores[i] >= np.average(updated_scores):
         continue
     else:
         updated_scores[i] = 0
@@ -55,10 +54,9 @@ for i in range(len(updated_scores)):
 print(f"Updated scores after thresholding are:\n{updated_scores}\n")
 
 # Filter out the feature that is not zero
-filtered_feature_matrix = np.random.rand(5, 3)
-filtered_indices = []
+filtered_feature_matrix = np.random.rand(n_top_features, 3)
 for i in range(len(updated_scores)):
-    if updated_scores[i] > 0:
+    if updated_scores[i] != 0:
         filtered_feature_matrix[i] = feature_matrix[i]
     else:
         filtered_feature_matrix[i] = 0
@@ -72,7 +70,7 @@ colors = plt.rcParams['axes.prop_cycle'].by_key()['color']
 fig1 = plt.figure(figsize=(8, 6))
 ax1 = fig1.add_subplot(111, projection='3d')
 
-for i in range(5):
+for i in range(n_top_features):
     x, y, z = feature_matrix[i]
     c = colors[i % len(colors)]
 
@@ -88,7 +86,7 @@ ax1.set_zlabel("Z")
 fig2 = plt.figure(figsize=(8, 6))
 ax2 = fig2.add_subplot(111, projection='3d')
 
-for i in range(5):
+for i in range(n_top_features):
     x, y, z = filtered_feature_matrix[i]
     c = colors[i % len(colors)]
 
