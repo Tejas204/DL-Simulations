@@ -26,6 +26,16 @@ class DataSubset():
         """
         return self.timestamps[index]
     
+    def __getlength__(self, timestamps):
+        """
+        Return the length of given timestamps
+        
+        :param self: DesClass specific parameterscription
+        :param timestamps: Array like object
+        """
+        return np.size(timestamps)
+
+    
     def remove_time_stamps(self, start, end):
         """
         Remove data at timestamps from start index to end index.
@@ -35,15 +45,18 @@ class DataSubset():
         :param start: start index of removal
         :param end: end index of removal
         """
-        removed_timestamps = self.timestamps[start: end]
+        removed_timestamps = self.timestamps[start: end+1]
 
         if start == 0:
-            selected_timestamps = self.timestamps[end: ]
+            selected_timestamps = self.timestamps[end+1: ]
         else:
-            selected_timestamps = np.append(self.timestamps[: start], self.timestamps[end: ])
+            selected_timestamps = np.append(self.timestamps[: start], self.timestamps[end+1: ])
 
         return selected_timestamps, removed_timestamps
 
 
 subset = DataSubset()
+remaining, removed = subset.remove_time_stamps(2, 10)
+print(remaining)
+print(subset.__getlength__(remaining))
 
