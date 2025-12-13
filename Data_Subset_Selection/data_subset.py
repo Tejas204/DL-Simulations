@@ -62,9 +62,12 @@ class DataSubset():
         :param subset: data to be written to the file
         :param file_name: file name of the data file
         """
-        with open(str(file_name)+".txt", "w+") as file:
-            file.write(str(subset))
+        with open(str(file_name)+".txt", "a+") as file:
+            file.write(str(subset)+"\n")
             file.close()
+
+    def read_data(self, file_name):
+        pass
 
 subset = DataSubset()
 remaining, removed = subset.remove_time_stamps(2, 10)
