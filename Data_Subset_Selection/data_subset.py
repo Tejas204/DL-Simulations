@@ -55,6 +55,13 @@ class DataSubset():
         return selected_timestamps, removed_timestamps
     
     def write_data(self, subset, file_name):
+        """
+        Write data to a text file for later use
+        
+        :param self: Class specific parameters
+        :param subset: data to be written to the file
+        :param file_name: file name of the data file
+        """
         with open(str(file_name)+".txt", "w+") as file:
             file.write(str(subset))
             file.close()
