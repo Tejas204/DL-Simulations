@@ -53,10 +53,13 @@ class DataSubset():
             selected_timestamps = np.append(self.timestamps[: start], self.timestamps[end+1: ])
 
         return selected_timestamps, removed_timestamps
-
+    
+    def write_data(self, subset, file_name):
+        with open(str(file_name)+".txt", "w+") as file:
+            file.write(str(subset))
+            file.close()
 
 subset = DataSubset()
 remaining, removed = subset.remove_time_stamps(2, 10)
-print(remaining)
-print(subset.__getlength__(remaining))
+subset.write_data(remaining, "data_subset")
 
